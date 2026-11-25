@@ -1,5 +1,5 @@
-import React from 'react';
-import { Trees, Home, UtensilsCrossed, Star } from 'lucide-react';
+import React, { useState } from 'react';
+import { Trees, Home, UtensilsCrossed, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { LeafBranch } from './BotanicalDecoration';
 
 export const HighlightsStrip: React.FC = () => {
@@ -26,8 +26,41 @@ export const HighlightsStrip: React.FC = () => {
     },
   ];
 
+  const exploreShowcase = [
+    {
+      title: "Evening Patio Dining",
+      subtitle: "Al-fresco seating under warm string lights",
+      url: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=85&w=800&auto=format&fit=crop"
+    },
+    {
+      title: "Illuminated Gazebo",
+      subtitle: "Poetry sessions & family celebrations",
+      url: "https://lh3.googleusercontent.com/grass-cs/AABkmLfJdu132n4YFj8sAjBfXekeIni-UAViOZrqk7WM4yYzC57LvS9j9GFNxgAUrE_tNJuy4sq2RDvn2PImvQa2ZeCr6kj0j8OUXoZE4Oys2LY3XZpSGVVlCR3vCTS1-HynkLCXdE8dXOEzGy4G=w800-no"
+    },
+    {
+      title: "Bonfire Nights",
+      subtitle: "Stargazing and cozy fireside warmth",
+      url: "https://images.unsplash.com/photo-1475483768296-6163e08872a1?q=85&w=800&auto=format&fit=crop"
+    },
+    {
+      title: "Palm Garden Walkway",
+      subtitle: "Paved trails through betel nut trees",
+      url: "https://lh3.googleusercontent.com/grass-cs/AABkmLfIU7VnAFJqrJU5clh3B1QNCVI80ICYOsSZQPYmSX8q62eSc-LNG4_lE3LYmyu7KMNmFOtPruLM6U9hfOLg64XDTpqcUk4sORaAWhyf6p3WiEUQyCielnM7OVSZQnyGiU3MozL5qMR0lj4=w800-no"
+    }
+  ];
+
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  const nextSlide = () => {
+    setActiveSlide((prev) => (prev + 1) % exploreShowcase.length);
+  };
+
+  const prevSlide = () => {
+    setActiveSlide((prev) => (prev - 1 + exploreShowcase.length) % exploreShowcase.length);
+  };
+
   return (
-    <section className="relative bg-forest-900 text-ivory py-16 sm:py-24 curve-top curve-bottom overflow-hidden shadow-elevated">
+    <section className="relative bg-forest-900 text-ivory pt-16 pb-20 sm:pt-24 sm:pb-28 curve-top curve-bottom overflow-hidden shadow-elevated">
       
       {/* Botanical Watermark Backgrounds */}
       <div className="absolute top-4 left-6 pointer-events-none opacity-10 text-sand">
@@ -48,12 +81,12 @@ export const HighlightsStrip: React.FC = () => {
             </h3>
             <span className="w-12 sm:w-20 h-px bg-gold/40" />
           </div>
-          <p className="font-script text-xl text-sand/80 mt-2">
+          <p className="font-script text-xl sm:text-2xl text-sand/80 mt-2">
             The authentic essence of Konkani hospitality
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mb-16 sm:mb-20">
           
           {/* 4 Circular Feature Badges (matching reference!) */}
           <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-4 text-center">
@@ -75,7 +108,7 @@ export const HighlightsStrip: React.FC = () => {
             })}
           </div>
 
-          {/* Scrapbook Tilted Polaroid Photo with Tape & Handwritten Script (as seen in user uploaded reference!) */}
+          {/* Scrapbook Tilted Polaroid Photo with Tape & Handwritten Script */}
           <div className="lg:col-span-4 flex justify-center lg:justify-end">
             <div className="relative group rotate-2 hover:rotate-0 transition-transform duration-500 max-w-[280px]">
               
@@ -90,7 +123,7 @@ export const HighlightsStrip: React.FC = () => {
               <div className="bg-ivory p-3.5 pb-10 rounded-sm shadow-polaroid border border-sand/40">
                 <div className="overflow-hidden rounded-xs bg-sand/30 aspect-[4/3]">
                   <img
-                    src="https://lh3.googleusercontent.com/grass-cs/AABkmLcK7U9p__FGK899uzGsc4C0kgsbnTN4hTnh79TnFLzUVsY_hyPAs7ryA8GH55YnXxrvHdzkABc6muyO1SW2hH6apV1ddakQ2IRUMDi-3cYE_uUGupfOA7OD3DbEsdrnP8q-6RiksRjINqMA=s0"
+                    src="https://lh3.googleusercontent.com/grass-cs/AABkmLcbmyEL7qZIfTTttJ011mAWZFgX5sX6RtkZO1hCfwENS4wcsdqXGYedRdzh7N4c1C09SuJRqR-uwk8CkJ2_48AaAtX4_7sWV_n0IDo0eVEyp299SoWYeN-KyCWX49o0PztN7aJqymvdhAh3=w1200-no"
                     alt="Scenic nature surroundings at Nature's Harmony Resort"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
@@ -106,6 +139,66 @@ export const HighlightsStrip: React.FC = () => {
               </div>
 
             </div>
+          </div>
+
+        </div>
+
+        {/* Explore Our Resort 4-Photo Showcase (Matching Reference Design Strip!) */}
+        <div className="pt-8 border-t border-ivory/15">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h4 className="font-serif text-2xl sm:text-3xl text-sand font-normal">
+                Explore Our Resort
+              </h4>
+              <p className="text-xs sm:text-sm text-sand/70 font-sans mt-0.5">
+                Authentic spaces for serenity, warmth, and togetherness
+              </p>
+            </div>
+
+            {/* Navigation Arrows */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={prevSlide}
+                className="w-9 h-9 rounded-full bg-forest-800 hover:bg-gold text-sand hover:text-forest-950 flex items-center justify-center transition-colors border border-sand/30"
+                aria-label="Previous showcase photo"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={nextSlide}
+                className="w-9 h-9 rounded-full bg-forest-800 hover:bg-gold text-sand hover:text-forest-950 flex items-center justify-center transition-colors border border-sand/30"
+                aria-label="Next showcase photo"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          {/* 4 Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {exploreShowcase.map((item, idx) => (
+              <div
+                key={idx}
+                className="group relative overflow-hidden rounded-2xl bg-forest-950/60 border border-sand/20 shadow-warm hover:border-gold/60 transition-all duration-300"
+              >
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={item.url}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-4 bg-gradient-to-t from-forest-950 via-forest-950/90 to-transparent">
+                  <h5 className="font-serif text-base sm:text-lg text-ivory font-medium group-hover:text-gold transition-colors">
+                    {item.title}
+                  </h5>
+                  <p className="text-xs text-sand/70 font-sans mt-1">
+                    {item.subtitle}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
 
         </div>
