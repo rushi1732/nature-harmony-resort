@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F7F0E5;
+}
+::-webkit-scrollbar-thumb {
+  background: #465A3D;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #182719;
+}
+
+/* Scrapbook tape texture effect */
+.mask-tape {
+  position: relative;
+}
+.mask-tape::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1.5deg);
+  width: 90px;
+  height: 24px;
+  background: rgba(231, 214, 187, 0.75);
+  backdrop-filter: blur(2px);
+  border-left: 2px dashed rgba(168, 93, 59, 0.3);
+  border-right: 2px dashed rgba(168, 93, 59, 0.3);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+}
+
+/* Organic curve dividers */
+.curve-top {
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+}
+@media (min-width: 768px) {
+  .curve-top {
+    border-top-left-radius: 80px;
+    border-top-right-radius: 80px;
+  }
+}
+
+.curve-bottom {
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+@media (min-width: 768px) {
+  .curve-bottom {
+    border-bottom-left-radius: 80px;
+    border-bottom-right-radius: 80px;
+  }
+}
