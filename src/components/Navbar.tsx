@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Phone } from 'lucide-react';
-import { RESORT_INFO } from '../data/resortData';
+import { Menu, X } from 'lucide-react';
 
 interface NavbarProps {
   onOpenBooking: () => void;
@@ -112,24 +111,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
             <span className="w-px h-5 bg-ivory/20" />
 
             {/* Action CTAs */}
-            <div className="flex items-center gap-4">
-              <a
-                href={`tel:${RESORT_INFO.rawPhone}`}
-                className="flex items-center gap-2 text-xs font-medium text-ivory/80 hover:text-gold transition-colors py-1.5 px-3 rounded-full border border-white/10 hover:border-gold/40"
-                title="Call Resort"
-              >
-                <Phone className="w-3.5 h-3.5 text-gold" />
-                <span>+91 7666173397</span>
-              </a>
-
-              <button
-                onClick={onOpenBooking}
-                className="relative inline-flex items-center justify-center px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-forest-900 bg-sand hover:bg-gold rounded-full shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
-              >
-                <span>Book Your Stay</span>
-                <span className="ml-1.5 text-forest-900 font-bold">→</span>
-              </button>
-            </div>
+            <button
+              onClick={onOpenBooking}
+              className="relative inline-flex items-center justify-center px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-forest-900 bg-sand hover:bg-gold rounded-full shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+            >
+              <span>Book Your Stay</span>
+              <span className="ml-1.5 text-forest-900 font-bold">→</span>
+            </button>
           </div>
 
           {/* Medium Screen CTA (when menu is collapsed) */}
@@ -183,13 +171,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
               </a>
             ))}
             <div className="pt-4 flex flex-col gap-3">
-              <a
-                href={`tel:${RESORT_INFO.rawPhone}`}
-                className="flex items-center justify-center gap-2 text-sm text-sand py-2.5 rounded-full border border-sand/30"
-              >
-                <Phone className="w-4 h-4 text-gold" />
-                <span>Call +91 7666173397</span>
-              </a>
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
