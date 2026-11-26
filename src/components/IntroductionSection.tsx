@@ -8,7 +8,7 @@ interface IntroductionSectionProps {
 
 export const IntroductionSection: React.FC<IntroductionSectionProps> = ({ onLearnMore }) => {
   return (
-    <section id="about" className="relative py-16 sm:py-24 bg-ivory text-charcoal overflow-hidden">
+    <section id="about" className="relative py-16 sm:py-24 bg-ivory text-charcoal overflow-hidden scroll-mt-20">
       
       {/* Decorative background leaf illustration */}
       <div className="absolute top-10 right-4 pointer-events-none opacity-20 text-moss">

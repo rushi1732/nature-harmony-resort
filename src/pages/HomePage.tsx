@@ -26,6 +26,13 @@ export const HomePage: React.FC = () => {
     }
   };
 
+  const handleLearnMore = () => {
+    const el = document.getElementById('accommodations');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const handleEnquireService = (serviceTitle: string) => {
     navigate(`/booking?enquiryType=${encodeURIComponent(serviceTitle)}`);
   };
@@ -45,7 +52,7 @@ export const HomePage: React.FC = () => {
 
         {/* Editorial Asymmetric Introduction */}
         <IntroductionSection
-          onLearnMore={handleExplore}
+          onLearnMore={handleLearnMore}
         />
 
         {/* Dark Forest Highlights Strip with Polaroid Scrapbook Feature */}

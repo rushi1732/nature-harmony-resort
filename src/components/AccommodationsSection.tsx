@@ -79,7 +79,7 @@ export const AccommodationsSection: React.FC = () => {
   };
 
   return (
-    <section id="accommodations" className="relative py-20 sm:py-28 bg-ivory text-charcoal overflow-hidden border-t border-sand/40">
+    <section id="accommodations" className="relative py-20 sm:py-28 bg-ivory text-charcoal overflow-hidden border-t border-sand/40 scroll-mt-20">
       
       {/* Decorative Botanical Leaf Accents */}
       <div className="absolute top-12 left-4 pointer-events-none opacity-20 text-forest-800 hidden lg:block">
