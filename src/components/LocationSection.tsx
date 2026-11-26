@@ -5,7 +5,9 @@ import { LeafBranch } from './BotanicalDecoration';
 
 export const LocationSection: React.FC = () => {
   return (
-    <section id="location" className="relative py-20 sm:py-28 bg-ivory text-charcoal overflow-hidden">
+    <section id="contact" className="relative py-20 sm:py-28 bg-ivory text-charcoal overflow-hidden">
+      {/* Anchor for backward compatibility with location links */}
+      <div id="location" className="absolute -top-20" />
       
       {/* Decorative leaf watermarks */}
       <div className="absolute top-6 left-6 pointer-events-none opacity-20 text-moss">

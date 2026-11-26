@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { QuickBookingBar } from './components/QuickBookingBar';
 import { IntroductionSection } from './components/IntroductionSection';
 import { HighlightsStrip } from './components/HighlightsStrip';
 import { ServicesSection } from './components/ServicesSection';
@@ -58,11 +57,6 @@ export const App: React.FC = () => {
         <Hero
           onOpenBooking={() => handleOpenBooking()}
           onExplore={handleExplore}
-        />
-
-        {/* Quick Booking Floating Bar (Overlapping Hero & Intro) */}
-        <QuickBookingBar
-          onCheckAvailability={(data) => handleOpenBooking(data)}
         />
 
         {/* Editorial Asymmetric Introduction */}
