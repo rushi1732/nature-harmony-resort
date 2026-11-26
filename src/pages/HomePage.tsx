@@ -52,9 +52,7 @@ export const HomePage: React.FC = () => {
         <HighlightsStrip />
 
         {/* Accommodations / Rooms Section - Placed right above Services */}
-        <AccommodationsSection
-          onOpenBooking={handleOpenBooking}
-        />
+        <AccommodationsSection />
 
         {/* Services & Amenities Section */}
         <ServicesSection

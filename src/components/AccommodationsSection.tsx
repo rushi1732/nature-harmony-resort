@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Calendar,
   Users,
   Check,
-  ShieldCheck,
   Sparkles,
   MessageSquare,
-  ExternalLink,
   ChevronRight,
   Maximize2,
   X,
@@ -14,7 +13,6 @@ import {
 } from 'lucide-react';
 import {
   ROOM_CATEGORIES,
-  RESAVENUE_ENGINE_URL,
   RESORT_POLICIES,
   DIRECT_BOOKING_BENEFITS,
   RoomCategory
@@ -22,11 +20,9 @@ import {
 import { RESORT_INFO } from '../data/resortData';
 import { LeafBranch } from './BotanicalDecoration';
 
-interface AccommodationsSectionProps {
-  onOpenBooking: () => void;
-}
+export const AccommodationsSection: React.FC = () => {
+  const navigate = useNavigate();
 
-export const AccommodationsSection: React.FC<AccommodationsSectionProps> = ({ onOpenBooking }) => {
   // Selected room for detailed modal
   const [selectedRoom, setSelectedRoom] = useState<RoomCategory | null>(null);
 
@@ -65,11 +61,12 @@ export const AccommodationsSection: React.FC<AccommodationsSectionProps> = ({ on
     setSelectedRoom(null);
   };
 
-  const handleBookOnResAvenue = (roomName?: string) => {
-    const trackingUrl = roomName
-      ? `${RESAVENUE_ENGINE_URL}&roomSelection=${encodeURIComponent(roomName)}`
-      : RESAVENUE_ENGINE_URL;
-    window.open(trackingUrl, '_blank', 'noopener,noreferrer');
+  // Direct internal navigation to "Plan Your Stay in Serenity" booking form
+  const handleBookNow = (roomName: string, planName?: string) => {
+    const params = new URLSearchParams();
+    if (roomName) params.set('room', roomName);
+    if (planName) params.set('plan', planName);
+    navigate(`/booking?${params.toString()}`);
   };
 
   const handleWhatsAppEnquiry = (roomName: string, selectedPlanTitle?: string) => {
@@ -98,7 +95,7 @@ export const AccommodationsSection: React.FC<AccommodationsSectionProps> = ({ on
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 mb-3 px-4 py-1.5 rounded-full bg-forest-900/10 border border-gold/30 text-forest-900 text-xs font-semibold uppercase tracking-widest">
             <Sparkles className="w-3.5 h-3.5 text-gold" />
-            <span>Accommodations & Live Rates</span>
+            <span>Accommodations & Direct Booking</span>
           </div>
 
           <h2 className="font-serif text-3xl sm:text-5xl font-normal text-forest-950 tracking-tight mb-4">
@@ -143,8 +140,7 @@ export const AccommodationsSection: React.FC<AccommodationsSectionProps> = ({ on
 
           <div className="flex items-center gap-2 text-xs">
             <span className="inline-block w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
-            <span className="text-forest-900 font-semibold">ResAvenue Engine Synced</span>
-            <span className="text-charcoal/60 text-[11px]">(Code: RAAG0925)</span>
+            <span className="text-forest-900 font-semibold">Direct Resort Booking · Best Rates Guaranteed</span>
           </div>
         </div>
 
@@ -376,7 +372,7 @@ export const AccommodationsSection: React.FC<AccommodationsSectionProps> = ({ on
                         </button>
 
                         <button
-                          onClick={() => handleBookOnResAvenue(room.name)}
+                          onClick={() => handleBookNow(room.name, currentPlan?.name)}
                           className="px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider text-forest-900 bg-sand hover:bg-gold shadow-md hover:shadow-lg transition-all flex items-center gap-1.5"
                         >
                           <span>Book Now</span>
@@ -390,40 +386,6 @@ export const AccommodationsSection: React.FC<AccommodationsSectionProps> = ({ on
               </div>
             );
           })}
-        </div>
-
-        {/* ResAvenue Official Engine Callout */}
-        <div className="mt-16 p-8 rounded-3xl bg-forest-950 text-ivory border border-forest-800 text-center relative overflow-hidden">
-          <div className="max-w-2xl mx-auto relative z-10">
-            <div className="w-12 h-12 rounded-full bg-forest-900 border border-gold/40 flex items-center justify-center text-gold mx-auto mb-3">
-              <ShieldCheck className="w-6 h-6" />
-            </div>
-
-            <h3 className="font-serif text-2xl text-ivory mb-2">
-              Official ResAvenue Live Booking Engine
-            </h3>
-            <p className="text-xs sm:text-sm text-ivory/80 leading-relaxed mb-6">
-              Instant date selection, multi-room combinations, and official reservations powered directly by 
-              ResAvenue (Resort Registration Code: <strong>RAAG0925</strong>).
-            </p>
-
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              <button
-                onClick={() => handleBookOnResAvenue()}
-                className="px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-wider text-forest-900 bg-sand hover:bg-gold shadow-md transition-all flex items-center gap-2"
-              >
-                <span>Launch ResAvenue Engine</span>
-                <ExternalLink className="w-4 h-4" />
-              </button>
-
-              <button
-                onClick={onOpenBooking}
-                className="px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-wider text-ivory hover:text-gold bg-forest-900 border border-sand/40 transition-all"
-              >
-                <span>Resort Stay Enquiry Form</span>
-              </button>
-            </div>
-          </div>
         </div>
 
       </div>
@@ -578,12 +540,12 @@ export const AccommodationsSection: React.FC<AccommodationsSectionProps> = ({ on
                 <button
                   onClick={() => {
                     handleCloseDetails();
-                    handleBookOnResAvenue(selectedRoom.name);
+                    handleBookNow(selectedRoom.name);
                   }}
                   className="px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider text-forest-900 bg-sand hover:bg-gold shadow-md transition-all flex items-center gap-1.5"
                 >
-                  <span>Book on ResAvenue</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Book This Room Now</span>
+                  <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
             </div>

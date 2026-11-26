@@ -26,7 +26,8 @@ export const BookingPage: React.FC<BookingPageProps> = ({ onClose, savedScrollY 
 
   // Pre-fill from query params if available
   const initialType = searchParams.get('type') || searchParams.get('enquiryType') || searchParams.get('service') || 'Family Stay';
-  const initialRoom = searchParams.get('room') || 'Deluxe AC Cottage Room';
+  const initialRoom = searchParams.get('room') || 'Semi Deluxe AC Room';
+  const initialPlan = searchParams.get('plan') || 'Room with Breakfast';
 
   // Default dates
   const today = new Date().toISOString().split('T')[0];
@@ -40,6 +41,7 @@ export const BookingPage: React.FC<BookingPageProps> = ({ onClose, savedScrollY 
     email: '',
     enquiryType: initialType,
     room: initialRoom,
+    mealPlan: initialPlan,
     checkIn: today,
     checkOut: tomorrow,
     guests: '2 Adults',
@@ -85,12 +87,18 @@ export const BookingPage: React.FC<BookingPageProps> = ({ onClose, savedScrollY 
     };
   }, [savedScrollY]);
 
-  // Update enquiryType if searchParams change
+  // Update enquiryType, room, and mealPlan if searchParams change
   useEffect(() => {
     const qType = searchParams.get('type') || searchParams.get('enquiryType') || searchParams.get('service');
-    if (qType) {
-      setFormData(prev => ({ ...prev, enquiryType: qType }));
-    }
+    const qRoom = searchParams.get('room');
+    const qPlan = searchParams.get('plan');
+
+    setFormData(prev => ({
+      ...prev,
+      ...(qType ? { enquiryType: qType } : {}),
+      ...(qRoom ? { room: qRoom } : {}),
+      ...(qPlan ? { mealPlan: qPlan } : {})
+    }));
   }, [searchParams]);
 
   const handleBack = () => {
@@ -151,6 +159,7 @@ export const BookingPage: React.FC<BookingPageProps> = ({ onClose, savedScrollY 
       formData.email ? `✉️ *Email ID:* ${formData.email.trim()}` : null,
       `🏡 *Enquiry Type:* ${formData.enquiryType}`,
       `🛏️ *Room Preference:* ${formData.room}`,
+      `🍽️ *Meal / Tariff Plan:* ${formData.mealPlan}`,
       `📅 *Check-In Date:* ${formData.checkIn}`,
       `📅 *Check-Out Date:* ${formData.checkOut} (${nights} ${nights === 1 ? 'Night' : 'Nights'})`,
       `👥 *Number of Guests:* ${formData.guests}`,
@@ -399,11 +408,10 @@ export const BookingPage: React.FC<BookingPageProps> = ({ onClose, savedScrollY 
                   required
                   className="w-full px-4 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl bg-white border border-sand focus:border-forest-900 focus:ring-2 focus:ring-moss/20 text-charcoal text-sm sm:text-base transition-all shadow-sm appearance-none outline-none cursor-pointer"
                 >
-                  <option value="Deluxe AC Cottage Room">Deluxe AC Cottage Room (Balcony / Garden View)</option>
-                  <option value="Two-Story Wooden Balcony Cottage">Two-Story Wooden Balcony Cottage</option>
-                  <option value="Family Suite Cottage (4-6 Guests)">Family Suite Cottage (4-6 Guests)</option>
-                  <option value="Nature View Verandah Room">Nature View Verandah Room</option>
-                  <option value="Entire Resort / Group Booking (Multiple Rooms)">Entire Resort / Group Booking (Multiple Rooms)</option>
+                  <option value="Semi Deluxe AC Room">Semi Deluxe AC Room (Garden View · Split AC · ₹3,680/night)</option>
+                  <option value="Super Deluxe AC Room">Super Deluxe AC Room (Private Verandah & Canopy View · ₹5,480/night)</option>
+                  <option value="Two-Story Wooden Balcony Cottage">Two-Story Wooden Balcony Cottage (Duplex / Family Unit · ₹8,500/night)</option>
+                  <option value="Entire Resort / Group Celebration Booking">Entire Resort / Group Celebration Booking (Multiple Rooms)</option>
                 </select>
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-forest-900">
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
@@ -413,10 +421,35 @@ export const BookingPage: React.FC<BookingPageProps> = ({ onClose, savedScrollY 
               </div>
             </div>
 
-            {/* FIELD 6: Check-In Date, Check-Out Date, and Guests – Horizontal Row on Desktop */}
+            {/* FIELD 6: Meal Plan / Tariff Option */}
             <div>
               <label className="block text-xs sm:text-sm font-semibold uppercase tracking-wider text-forest-900 mb-2 font-serif">
-                6. Dates & Guests <span className="text-terracotta">*</span>
+                6. Meal & Rate Plan Preference <span className="text-terracotta">*</span>
+              </label>
+              <div className="relative">
+                <select
+                  name="mealPlan"
+                  value={formData.mealPlan}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl bg-white border border-sand focus:border-forest-900 focus:ring-2 focus:ring-moss/20 text-charcoal text-sm sm:text-base transition-all shadow-sm appearance-none outline-none cursor-pointer"
+                >
+                  <option value="Room with Breakfast">Room with Breakfast (Fresh Authentic Konkani Breakfast Included)</option>
+                  <option value="Room Only">Room Only (Accommodation Only)</option>
+                  <option value="All-Inclusive Stay">All-Inclusive Stay (Breakfast, Lunch, High Tea & Dinner)</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-forest-900">
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            {/* FIELD 7: Check-In Date, Check-Out Date, and Guests – Horizontal Row on Desktop */}
+            <div>
+              <label className="block text-xs sm:text-sm font-semibold uppercase tracking-wider text-forest-900 mb-2 font-serif">
+                7. Dates & Guests <span className="text-terracotta">*</span>
               </label>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
@@ -489,10 +522,10 @@ export const BookingPage: React.FC<BookingPageProps> = ({ onClose, savedScrollY 
               </div>
             </div>
 
-            {/* FIELD 7: Special Notes / Food Preferences – Full-width textarea */}
+            {/* FIELD 8: Special Notes / Food Preferences – Full-width textarea */}
             <div>
               <label className="block text-xs sm:text-sm font-semibold uppercase tracking-wider text-forest-900 mb-2 font-serif">
-                7. Special Notes / Food Preferences <span className="text-xs font-normal text-charcoal/50 lowercase">(optional)</span>
+                8. Special Notes / Food Preferences <span className="text-xs font-normal text-charcoal/50 lowercase">(optional)</span>
               </label>
               <textarea
                 name="notes"
