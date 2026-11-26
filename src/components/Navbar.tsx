@@ -26,33 +26,25 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
   }, []);
 
   const navLinks = [
-    { name: 'The Resort', targetId: 'about', isRoute: false },
-    { name: 'Accommodations', path: '/accommodations', isRoute: true },
-    { name: 'Services', targetId: 'services', isRoute: false },
-    { name: 'Experiences', targetId: 'experiences', isRoute: false },
-    { name: 'Gallery', targetId: 'gallery', isRoute: false },
-    { name: 'Contact', targetId: 'contact', isRoute: false },
+    { name: 'The Resort', targetId: 'about' },
+    { name: 'Accommodations', targetId: 'accommodations' },
+    { name: 'Services', targetId: 'services' },
+    { name: 'Experiences', targetId: 'experiences' },
+    { name: 'Gallery', targetId: 'gallery' },
+    { name: 'Contact', targetId: 'contact' },
   ];
 
-  const handleNavClick = (link: typeof navLinks[0], e: React.MouseEvent) => {
+  const handleNavClick = (targetId: string, e: React.MouseEvent) => {
     e.preventDefault();
     setMobileMenuOpen(false);
 
-    if (link.isRoute && link.path) {
-      navigate(link.path);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-
-    if (!link.isRoute && link.targetId) {
-      if (location.pathname === '/') {
-        const el = document.getElementById(link.targetId);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-        }
-      } else {
-        navigate(`/#${link.targetId}`);
+    if (location.pathname === '/') {
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
       }
+    } else {
+      navigate(`/#${targetId}`);
     }
   };
 
@@ -104,26 +96,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
           <div className="hidden lg:flex items-center gap-7">
             {/* Desktop Navigation Links */}
             <nav className="flex items-center gap-6">
-              {navLinks.map((link) => {
-                const isActive = link.isRoute && location.pathname === link.path;
-                return (
-                  <a
-                    key={link.name}
-                    href={link.isRoute ? link.path : `#${link.targetId}`}
-                    onClick={(e) => handleNavClick(link, e)}
-                    className={`text-sm tracking-wide transition-colors duration-200 font-medium relative group ${
-                      isActive ? 'text-gold font-semibold' : 'text-ivory/90 hover:text-gold'
-                    }`}
-                  >
-                    {link.name}
-                    <span
-                      className={`absolute -bottom-1 left-0 h-0.5 bg-gold transition-all duration-300 ${
-                        isActive ? 'w-full' : 'w-0 group-hover:w-full'
-                      }`}
-                    />
-                  </a>
-                );
-              })}
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={`#${link.targetId}`}
+                  onClick={(e) => handleNavClick(link.targetId, e)}
+                  className="text-sm tracking-wide text-ivory/90 hover:text-gold transition-colors duration-200 font-medium relative group"
+                >
+                  {link.name}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full" />
+                </a>
+              ))}
             </nav>
 
             {/* Subtle Divider */}
@@ -190,21 +173,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
       {mobileMenuOpen && (
         <div className="lg:hidden bg-forest-950/98 border-b border-forest-800 px-6 py-6 transition-all duration-300 animate-fadeIn">
           <nav className="flex flex-col space-y-4">
-            {navLinks.map((link) => {
-              const isActive = link.isRoute && location.pathname === link.path;
-              return (
-                <a
-                  key={link.name}
-                  href={link.isRoute ? link.path : `#${link.targetId}`}
-                  onClick={(e) => handleNavClick(link, e)}
-                  className={`text-base font-serif transition-colors py-1 border-b border-forest-900/60 ${
-                    isActive ? 'text-gold font-bold' : 'text-ivory/90 hover:text-gold'
-                  }`}
-                >
-                  {link.name}
-                </a>
-              );
-            })}
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={`#${link.targetId}`}
+                onClick={(e) => handleNavClick(link.targetId, e)}
+                className="text-base font-serif text-ivory/90 hover:text-gold transition-colors py-1 border-b border-forest-900/60"
+              >
+                {link.name}
+              </a>
+            ))}
             <div className="pt-4 flex flex-col gap-3">
               <a
                 href={`tel:${RESORT_INFO.rawPhone}`}
@@ -229,3 +207,5 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
     </header>
   );
 };
+
+export default Navbar;

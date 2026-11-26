@@ -4,6 +4,7 @@ import { Navbar } from '../components/Navbar';
 import { Hero } from '../components/Hero';
 import { IntroductionSection } from '../components/IntroductionSection';
 import { HighlightsStrip } from '../components/HighlightsStrip';
+import { AccommodationsSection } from '../components/AccommodationsSection';
 import { ServicesSection } from '../components/ServicesSection';
 import { ExperiencesSection } from '../components/ExperiencesSection';
 import { GallerySection } from '../components/GallerySection';
@@ -49,6 +50,11 @@ export const HomePage: React.FC = () => {
 
         {/* Dark Forest Highlights Strip with Polaroid Scrapbook Feature */}
         <HighlightsStrip />
+
+        {/* Accommodations / Rooms Section - Placed right above Services */}
+        <AccommodationsSection
+          onOpenBooking={handleOpenBooking}
+        />
 
         {/* Services & Amenities Section */}
         <ServicesSection
