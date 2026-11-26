@@ -29,7 +29,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
     { name: 'The Resort', targetId: 'about' },
     { name: 'Accommodations', targetId: 'accommodations' },
     { name: 'Services', targetId: 'services' },
-    { name: 'Experiences', targetId: 'experiences' },
     { name: 'Gallery', targetId: 'gallery' },
     { name: 'Contact', targetId: 'contact' },
   ];
