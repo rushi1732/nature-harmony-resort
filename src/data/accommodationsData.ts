@@ -80,9 +80,9 @@ export const ROOM_CATEGORIES: RoomCategory[] = [
     },
     startingPrice: 3680,
     photos: [
+      "/images/cozy-cottage-room.jpg",
       "https://lh3.googleusercontent.com/grass-cs/AABkmLdGdaDGOkFipELVkpAJkjtRF6wT5w38Qa71I25St8oVR_juKQtY94ZhMVZ1vhyBi-Onmkktc-1neuAZnbZKgBlJxf-e1fOcdmIyUa5RHDoo2rnBlkvAlm_NcnfrH0ITg0C63NyqYnm9k4v9=w1200-no",
-      "https://lh3.googleusercontent.com/grass-cs/AABkmLeYpNBHae8WLKe-zSvI0HmDbyltsPJFgZ51xjeQjk4jGU-Kgr4RuQ_FHXVyzbiRY_pOjgU4v4qCIV7j-_Hgx8sfpBlbYM4Z6lpdRD0_AIMZtsZH8StdnLh2tBmMW6raXaZ6StQXofUn4g0=w1200-no",
-      "https://lh3.googleusercontent.com/grass-cs/AABkmLeJmO6grrLW7eezFK3AQLTpPdXOI-KCJGw9g3W_sY8Y6HcEmg4WujGJk-1AHNecSNUmmKfBKMYFnlfAXInTH4H_NI86RUlOiMTFKdx_w8XzyiI5o1wTitJMeiKc25ukFHBIl3hQKZFq4r8=w1200-no"
+      "/images/covered-swimming-pool.jpg"
     ],
     amenities: [
       "Individual Split Air Conditioning",
@@ -154,9 +154,9 @@ export const ROOM_CATEGORIES: RoomCategory[] = [
     },
     startingPrice: 5480,
     photos: [
+      "/images/nature-balcony-views.jpg",
       "https://lh3.googleusercontent.com/grass-cs/AABkmLfIU7VnAFJqrJU5clh3B1QNCVI80ICYOsSZQPYmSX8q62eSc-LNG4_lE3LYmyu7KMNmFOtPruLM6U9hfOLg64XDTpqcUk4sORaAWhyf6p3WiEUQyCielnM7OVSZQnyGiU3MozL5qMR0lj4=w1200-no",
-      "https://lh3.googleusercontent.com/grass-cs/AABkmLcK7U9p__FGK899uzGsc4C0kgsbnTN4hTnh79TnFLzUVsY_hyPAs7ryA8GH55YnXxrvHdzkABc6muyO1SW2hH6apV1ddakQ2IRUMDi-3cYE_uUGupfOA7OD3DbEsdrnP8q-6RiksRjINqMA=w1200-no",
-      "https://lh3.googleusercontent.com/grass-cs/AABkmLcjDfWyeq_u1I-nl-xSRBdeJJmOhhEqAjnt7lmGPH0mfRkVOPo4vLahMu5sO77ml06Ni0FpGUGZsAvyFN8eKKSxAYB9bEmVwMqqCRTIbz1xXUR2QVVXSzXZdwU2X1GU2ma6LjOBHzXaxWDv=w1200-no"
+      "/images/covered-swimming-pool.jpg"
     ],
     amenities: [
       "Private Sit-Out Verandah / Balcony",

@@ -86,8 +86,8 @@ export const IntroductionSection: React.FC<IntroductionSectionProps> = ({ onLear
               <div className="overflow-hidden rounded-2xl sm:rounded-t-[2.5rem] sm:rounded-b-2xl shadow-elevated border-2 border-ivory group bg-sand/20">
                 <div className="relative h-64 sm:h-80 overflow-hidden">
                   <img
-                    src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=90&w=800&auto=format&fit=crop"
-                    alt="Cozy wooden resort bedroom"
+                    src="/images/cozy-cottage-room.jpg"
+                    alt="Nature's Harmony Cozy Cottage Room"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     loading="lazy"
                   />
@@ -102,8 +102,8 @@ export const IntroductionSection: React.FC<IntroductionSectionProps> = ({ onLear
               <div className="overflow-hidden rounded-2xl shadow-elevated border-2 border-ivory group bg-sand/20 sm:translate-y-4">
                 <div className="relative h-64 sm:h-80 overflow-hidden">
                   <img
-                    src="https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?q=90&w=800&auto=format&fit=crop"
-                    alt="Freshly cooked Konkani feast served on banana leaf"
+                    src="/images/home-cooked-feasts.jpg"
+                    alt="Authentic Konkani Fish Thali and Home-Cooked Feast"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     loading="lazy"
                   />
@@ -118,8 +118,8 @@ export const IntroductionSection: React.FC<IntroductionSectionProps> = ({ onLear
               <div className="overflow-hidden rounded-2xl sm:rounded-t-2xl sm:rounded-b-[2.5rem] shadow-elevated border-2 border-ivory group bg-sand/20 sm:-translate-y-2">
                 <div className="relative h-64 sm:h-80 overflow-hidden">
                   <img
-                    src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=90&w=800&auto=format&fit=crop"
-                    alt="Verandah balcony overlooking lush trees"
+                    src="/images/nature-balcony-views.jpg"
+                    alt="Nature Balcony View of Cottage Canopy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     loading="lazy"
                   />

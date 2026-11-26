@@ -138,7 +138,7 @@ export const RESORT_PHOTOS: ResortPhoto[] = [
   },
   {
     id: 11,
-    url: "https://lh3.googleusercontent.com/grass-cs/AABkmLeJmO6grrLW7eezFK3AQLTpPdXOI-KCJGw9g3W_sY8Y6HcEmg4WujGJk-1AHNecSNUmmKfBKMYFnlfAXInTH4H_NI86RUlOiMTFKdx_w8XzyiI5o1wTitJMeiKc25ukFHBIl3hQKZFq4r8=s0",
+    url: "/images/covered-swimming-pool.jpg",
     title: "Covered Swimming Pool",
     category: "pool",
     caption: "Protected covered swimming pool suitable for daytime recreation and all-weather swimming.",
@@ -262,7 +262,7 @@ export const SERVICES: ServiceItem[] = [
     title: "Swimming Pool",
     shortDesc: "Clean, covered swimming pool suitable for relaxing laps, family fun, and all-weather swimming.",
     fullDesc: "Our covered swimming pool ensures refreshing fun protected from direct sun and monsoon rains. Thoroughly filtered and maintained for safety and hygiene, it's a favorite for kids and adults alike.",
-    photoUrl: "https://lh3.googleusercontent.com/grass-cs/AABkmLeJmO6grrLW7eezFK3AQLTpPdXOI-KCJGw9g3W_sY8Y6HcEmg4WujGJk-1AHNecSNUmmKfBKMYFnlfAXInTH4H_NI86RUlOiMTFKdx_w8XzyiI5o1wTitJMeiKc25ukFHBIl3hQKZFq4r8=s0",
+    photoUrl: "/images/covered-swimming-pool.jpg",
     badge: "All-Weather Covered",
     iconName: "Waves"
   },
