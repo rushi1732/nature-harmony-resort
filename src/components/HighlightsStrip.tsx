@@ -179,7 +179,12 @@ export const HighlightsStrip: React.FC = () => {
             {exploreShowcase.map((item, idx) => (
               <div
                 key={idx}
-                className="group relative overflow-hidden rounded-2xl bg-forest-950/60 border border-sand/20 shadow-warm hover:border-gold/60 transition-all duration-300"
+                onClick={() => setActiveSlide(idx)}
+                className={`group cursor-pointer relative overflow-hidden rounded-2xl bg-forest-950/60 border shadow-warm transition-all duration-300 ${
+                  idx === activeSlide
+                    ? 'border-gold shadow-gold/20 scale-[1.02]'
+                    : 'border-sand/20 hover:border-gold/60'
+                }`}
               >
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
@@ -190,14 +195,33 @@ export const HighlightsStrip: React.FC = () => {
                   />
                 </div>
                 <div className="p-4 bg-gradient-to-t from-forest-950 via-forest-950/90 to-transparent">
-                  <h5 className="font-serif text-base sm:text-lg text-ivory font-medium group-hover:text-gold transition-colors">
-                    {item.title}
-                  </h5>
+                  <div className="flex items-center justify-between">
+                    <h5 className="font-serif text-base sm:text-lg text-ivory font-medium group-hover:text-gold transition-colors">
+                      {item.title}
+                    </h5>
+                    {idx === activeSlide && (
+                      <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
+                    )}
+                  </div>
                   <p className="text-xs text-sand/70 font-sans mt-1">
                     {item.subtitle}
                   </p>
                 </div>
               </div>
+            ))}
+          </div>
+
+          {/* Dots Indicator */}
+          <div className="flex items-center justify-center gap-2 mt-6">
+            {exploreShowcase.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveSlide(idx)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  idx === activeSlide ? 'w-6 bg-gold' : 'w-2 bg-sand/30 hover:bg-sand/60'
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
             ))}
           </div>
 
