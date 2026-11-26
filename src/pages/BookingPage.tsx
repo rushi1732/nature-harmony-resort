@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   ArrowLeft,
+  X,
   MessageCircle,
   Phone,
   ShieldCheck,
@@ -14,14 +15,20 @@ import {
 import { LeafBranch } from '../components/BotanicalDecoration';
 import { RESORT_INFO } from '../data/resortData';
 
-export const BookingPage: React.FC = () => {
+interface BookingPageProps {
+  onClose?: () => void;
+  savedScrollY?: number;
+}
+
+export const BookingPage: React.FC<BookingPageProps> = ({ onClose, savedScrollY }) => {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
   // Pre-fill from query params if available
   const initialType = searchParams.get('type') || searchParams.get('enquiryType') || searchParams.get('service') || 'Family Stay';
   const initialRoom = searchParams.get('room') || 'Deluxe AC Cottage Room';
 
-  // Today and tomorrow for default dates
+  // Default dates
   const today = new Date().toISOString().split('T')[0];
   const tomorrowDate = new Date();
   tomorrowDate.setDate(tomorrowDate.getDate() + 1);
@@ -41,18 +48,60 @@ export const BookingPage: React.FC = () => {
 
   const [errorMsg, setErrorMsg] = useState('');
 
-  // Scroll to top on mount
+  // Lock background scroll and restore original Home position upon close/unmount
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    // Record scroll position before lock
+    const originalScroll = savedScrollY !== undefined ? savedScrollY : (
+      parseInt(sessionStorage.getItem('home_scroll_position') || '0', 10) || window.scrollY
+    );
 
-  // Update enquiryType or room if searchParams change
+    const originalOverflow = document.body.style.overflow;
+    const originalOverscroll = document.body.style.overscrollBehavior;
+
+    // Lock body scroll so background Home page cannot scroll
+    document.body.style.overflow = 'hidden';
+    document.body.style.overscrollBehavior = 'contain';
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        handleBack();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      // Restore body styles
+      document.body.style.overflow = originalOverflow;
+      document.body.style.overscrollBehavior = originalOverscroll;
+
+      // Restore original Home page scroll position
+      requestAnimationFrame(() => {
+        window.scrollTo({
+          top: originalScroll,
+          behavior: 'instant'
+        });
+      });
+    };
+  }, [savedScrollY]);
+
+  // Update enquiryType if searchParams change
   useEffect(() => {
     const qType = searchParams.get('type') || searchParams.get('enquiryType') || searchParams.get('service');
     if (qType) {
       setFormData(prev => ({ ...prev, enquiryType: qType }));
     }
   }, [searchParams]);
+
+  const handleBack = () => {
+    if (onClose) {
+      onClose();
+    } else if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -117,7 +166,15 @@ export const BookingPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-forest-950 text-ivory font-sans relative overflow-x-hidden selection:bg-gold selection:text-forest-950">
+    <div
+      id="booking-page-container"
+      className="fixed inset-0 z-50 bg-forest-950 text-ivory font-sans overflow-y-auto overscroll-contain selection:bg-gold selection:text-forest-950"
+      style={{
+        overscrollBehavior: 'contain',
+        WebkitOverflowScrolling: 'touch',
+      }}
+      onWheel={(e) => e.stopPropagation()}
+    >
       
       {/* Background Photograph with Subtle Dark Forest Wash */}
       <div className="fixed inset-0 z-0 pointer-events-none">
@@ -138,11 +195,15 @@ export const BookingPage: React.FC = () => {
       </div>
 
       {/* Top Header Bar */}
-      <header className="relative z-20 border-b border-ivory/10 bg-forest-950/80 backdrop-blur-md sticky top-0">
+      <header className="relative z-20 border-b border-ivory/10 bg-forest-950/90 backdrop-blur-md sticky top-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           
           {/* Logo linking to Home */}
-          <Link to="/" className="flex items-center gap-3 group">
+          <button
+            onClick={handleBack}
+            className="flex items-center gap-3 group text-left"
+            title="Return to Home"
+          >
             <div className="w-10 h-10 rounded-full border border-gold/40 flex items-center justify-center bg-forest-900/80 text-gold group-hover:scale-105 transition-transform duration-300">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="w-6 h-6">
                 <path d="M12 2L4 9v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-8-7z" />
@@ -158,9 +219,9 @@ export const BookingPage: React.FC = () => {
                 Resort · Chiplun
               </span>
             </div>
-          </Link>
+          </button>
 
-          {/* Back to Home CTA */}
+          {/* Action and Back Buttons */}
           <div className="flex items-center gap-3">
             <a
               href={`tel:${RESORT_INFO.rawPhone}`}
@@ -170,13 +231,23 @@ export const BookingPage: React.FC = () => {
               <span>+91 7666173397</span>
             </a>
 
-            <Link
-              to="/"
+            <button
+              onClick={handleBack}
               className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-sand/15 hover:bg-sand/30 text-sand hover:text-ivory text-xs sm:text-sm font-medium border border-sand/30 transition-all duration-300 shadow-sm hover:-translate-x-0.5"
             >
               <ArrowLeft className="w-4 h-4 text-gold" />
               <span>Back to Home</span>
-            </Link>
+            </button>
+
+            {/* Quick Close X Button */}
+            <button
+              onClick={handleBack}
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-ivory/20 hover:border-gold/60 bg-forest-900/50 hover:bg-forest-900 text-ivory hover:text-gold flex items-center justify-center transition-colors"
+              aria-label="Close booking form and return to home"
+              title="Close (Esc)"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
 
         </div>
@@ -466,13 +537,13 @@ export const BookingPage: React.FC = () => {
 
         {/* Back Link at bottom */}
         <div className="mt-8 text-center">
-          <Link
-            to="/"
+          <button
+            onClick={handleBack}
             className="inline-flex items-center gap-2 text-sand/80 hover:text-gold text-xs sm:text-sm uppercase tracking-wider font-semibold transition-colors py-2 px-4 rounded-full border border-sand/20 hover:border-gold/40"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Return to Nature's Harmony Resort Home</span>
-          </Link>
+          </button>
         </div>
 
       </main>
