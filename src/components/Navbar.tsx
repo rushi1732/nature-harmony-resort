@@ -23,7 +23,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
     { name: 'The Resort', href: '#about' },
     { name: 'Services', href: '#services' },
     { name: 'Experiences', href: '#experiences' },
@@ -62,37 +61,60 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
             </div>
           </a>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-7">
-            {navLinks.map((link) => (
+          {/* Right-Aligned Navigation & Action CTAs */}
+          <div className="hidden lg:flex items-center gap-7">
+            {/* Desktop Navigation Links */}
+            <nav className="flex items-center gap-6">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-sm tracking-wide text-ivory/90 hover:text-gold transition-colors duration-200 font-medium relative group"
+                >
+                  {link.name}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full" />
+                </a>
+              ))}
+            </nav>
+
+            {/* Subtle Divider */}
+            <span className="w-px h-5 bg-ivory/20" />
+
+            {/* Action CTAs */}
+            <div className="flex items-center gap-4">
               <a
-                key={link.name}
-                href={link.href}
-                className="text-sm tracking-wide text-ivory/85 hover:text-gold transition-colors duration-200 font-medium relative group"
+                href={`tel:${RESORT_INFO.rawPhone}`}
+                className="flex items-center gap-2 text-xs font-medium text-ivory/80 hover:text-gold transition-colors py-1.5 px-3 rounded-full border border-white/10 hover:border-gold/40"
+                title="Call Resort"
               >
-                {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full" />
+                <Phone className="w-3.5 h-3.5 text-gold" />
+                <span>+91 7666173397</span>
               </a>
-            ))}
-          </nav>
 
-          {/* Action CTAs */}
-          <div className="hidden sm:flex items-center gap-4">
-            <a
-              href={`tel:${RESORT_INFO.rawPhone}`}
-              className="flex items-center gap-2 text-xs font-medium text-ivory/80 hover:text-gold transition-colors py-1.5 px-2.5 rounded-full border border-white/10 hover:border-gold/40"
-              title="Call Resort"
-            >
-              <Phone className="w-3.5 h-3.5 text-gold" />
-              <span className="hidden md:inline">+91 7666173397</span>
-            </a>
+              <button
+                onClick={onOpenBooking}
+                className="relative inline-flex items-center justify-center px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-forest-900 bg-sand hover:bg-gold rounded-full shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+              >
+                <span>Book Your Stay</span>
+                <span className="ml-1.5 text-forest-900 font-bold">→</span>
+              </button>
+            </div>
+          </div>
 
+          {/* Medium Screen CTA (when menu is collapsed) */}
+          <div className="hidden sm:flex lg:hidden items-center gap-3">
             <button
               onClick={onOpenBooking}
-              className="relative inline-flex items-center justify-center px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-forest-900 bg-sand hover:bg-gold rounded-full shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+              className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-forest-900 bg-sand hover:bg-gold rounded-full shadow-md transition-all"
             >
-              <span>Book Your Stay</span>
-              <span className="ml-1.5 text-forest-900 font-bold">→</span>
+              Book Your Stay
+            </button>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded-lg text-ivory hover:text-gold hover:bg-forest-800 transition-colors"
+              aria-label="Toggle navigation menu"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
 
