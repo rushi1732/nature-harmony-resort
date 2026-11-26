@@ -9,7 +9,7 @@ export const ExperiencesSection: React.FC = () => {
       title: "Konkani Home Feasts",
       scriptSubtitle: "Farm-to-table traditions",
       desc: "Delight in authentic Konkani home cooking freshly prepared with farm-grown vegetables. Enjoy warm morning Ghawane, coconut chutneys, and savory local seafood and poultry dishes served with personal warmth.",
-      photo: "https://lh3.googleusercontent.com/grass-cs/AABkmLfEoCTUnKt2YWDPI5hFtY3g-MlJQpH575yBujL8nq9x3p4vYmZ_7jFoQITfn4tX2icZPeCkeP6Vs47TDNT83WnTiDADbb2f0X_NMLeiEiqJTO3YsawrU8OYHH9uxl9rlIgx4kAcJYEXn4DX=s0",
+      photo: "/images/home-cooked-feasts.jpg",
       icon: Utensils,
       tag: "Culinary"
     },
@@ -17,7 +17,7 @@ export const ExperiencesSection: React.FC = () => {
       title: "Covered Swimming Pool",
       scriptSubtitle: "All-weather refreshment",
       desc: "A clean, private covered pool designed for relaxation in every season. Swim away from the harsh afternoon sun or enjoy a cool dip during the Konkan monsoons surrounded by green foliage.",
-      photo: "https://lh3.googleusercontent.com/grass-cs/AABkmLeJmO6grrLW7eezFK3AQLTpPdXOI-KCJGw9g3W_sY8Y6HcEmg4WujGJk-1AHNecSNUmmKfBKMYFnlfAXInTH4H_NI86RUlOiMTFKdx_w8XzyiI5o1wTitJMeiKc25ukFHBIl3hQKZFq4r8=s0",
+      photo: "/images/covered-swimming-pool.jpg",
       icon: Waves,
       tag: "Recreation"
     },
